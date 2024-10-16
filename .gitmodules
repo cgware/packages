@@ -1,0 +1,3 @@
+[submodule "tools/code-style"]
+	path = tools/code-style
+	url = https://github.com/cgware/code-style
