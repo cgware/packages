@@ -1,0 +1,50 @@
+name: Update clang-format
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-clang-format:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
+          token: '${{ secrets.TOKEN }}'
+
+      - name: Set up git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Update submodules
+        run: git submodule update --remote --recursive
+
+      - name: Update clang-format
+        run: |
+          cp tools/code-style/.clang-format .clang-format
+          for dir in $(git submodule --quiet foreach 'echo $path'); do
+            echo "Updating: $dir"
+            cd "$dir" || exit 1
+            cp "${{ github.workspace }}/.clang-format" .
+            if [[ -n $(git status --porcelain) ]]; then
+              git checkout main
+              git add .
+              git commit -m "update clang-format"
+              git push
+            fi
+            cd - >/dev/null || exit 1
+          done
+
+      - name: Commit submodules
+        run: |
+          if [[ -n $(git status --porcelain) ]]; then
+            git add .
+            git commit -m "update clang-format"
+            git push
+          fi
