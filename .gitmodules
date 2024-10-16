@@ -1,3 +1,6 @@
 [submodule "tools/code-style"]
 	path = tools/code-style
 	url = https://github.com/cgware/code-style
+[submodule "packages/build"]
+	path = packages/build
+	url = https://github.com/cgware/build
