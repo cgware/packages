@@ -4,3 +4,6 @@
 [submodule "packages/build"]
 	path = packages/build
 	url = https://github.com/cgware/build
+[submodule "tools/third-party"]
+	path = tools/third-party
+	url = https://github.com/cgware/third-party
