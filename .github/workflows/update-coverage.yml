@@ -1,0 +1,52 @@
+name: Update coverage
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-coverage:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
+          token: '${{ secrets.TOKEN }}'
+
+      - name: Set up git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Update submodules
+        run: git submodule update --remote --recursive
+
+      - name: Update coverage
+        run: |
+          for dir in packages/*; do
+            if [ -d "$dir" ]; then
+              echo "Updating: $dir"
+              cd "$dir" || exit 1
+              mkdir -p .github/workflows
+              cp "${{ github.workspace }}/tools/workflows/.github/workflows/coverage-test.yml" .github/workflows/coverage.yml
+              if [[ -n $(git status --porcelain) ]]; then
+                git checkout main
+                git add .
+                git commit -m "update coverage"
+                git push
+              fi
+              cd - >/dev/null || exit 1
+            fi
+          done
+
+      - name: Commit submodules
+        run: |
+          if [[ -n $(git status --porcelain) ]]; then
+            git add .
+            git commit -m "update coverage"
+            git push
+          fi
