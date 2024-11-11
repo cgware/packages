@@ -7,3 +7,6 @@
 [submodule "tools/third-party"]
 	path = tools/third-party
 	url = https://github.com/cgware/third-party
+[submodule "packages/cbase"]
+	path = packages/cbase
+	url = https://github.com/cgware/cbase
