@@ -10,3 +10,6 @@
 [submodule "packages/cbase"]
 	path = packages/cbase
 	url = https://github.com/cgware/cbase
+[submodule "tools/workflows"]
+	path = tools/workflows
+	url = https://github.com/cgware/workflows
