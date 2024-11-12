@@ -13,3 +13,6 @@
 [submodule "tools/workflows"]
 	path = tools/workflows
 	url = https://github.com/cgware/workflows
+[submodule "packages/ctest"]
+	path = packages/ctest
+	url = https://github.com/cgware/ctest
