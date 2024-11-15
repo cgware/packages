@@ -16,3 +16,6 @@
 [submodule "packages/ctest"]
 	path = packages/ctest
 	url = https://github.com/cgware/ctest
+[submodule "packages/cutils"]
+	path = packages/cutils
+	url = https://github.com/cgware/cutils
