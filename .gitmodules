@@ -19,3 +19,6 @@
 [submodule "packages/cutils"]
 	path = packages/cutils
 	url = https://github.com/cgware/cutils
+[submodule "packages/cparse"]
+	path = packages/cparse
+	url = https://github.com/cgware/cparse
